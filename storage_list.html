@@ -16,6 +16,8 @@
     </section>
     <div id="savedList"></div>
   </body>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://www.jsdelivr.com/package/npm/bulma"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -28,13 +30,9 @@
       console.log("saveBtn");
       console.log ("i=" + i)
 
-      
-
-      console.log(i);
-
       //set movie variabble to the value of the inut field
       var movie = $("#movieIn").val().trim();
-      var item = $("<p>");
+      var item = $("<div>").addClass("box");
 
       console.log(movie);
       //creating a paragraph with the movie title as text and appending it to page
@@ -52,7 +50,7 @@
         var movie = JSON.parse(localStorage.getItem("movie" + j));
         if (movie !== null) {
           console.log(movie);
-          var item = $("<p>");
+          var item = $("<div>").addClass("box");
           $(item).text(movie);
           $("#savedList").append(item);
         }
