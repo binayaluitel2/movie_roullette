@@ -11,122 +11,201 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-      <header>
-        <nav class="navbar is-transparent">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="https://bulma.io">
-                <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-              </a>
-              <div class="navbar-burger" data-target="navbarExampleTransparentExample">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-            <div id="navbarExampleTransparentExample" class="navbar-menu">
-              <div class="navbar-start">
-                <a class="navbar-item" href="https://bulma.io/">
-                  Home
-                </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link" href="https://bulma.io/documentation/overview/start/">
-                    Docs
-                  </a>
-                  <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="https://bulma.io/documentation/overview/start/">
-                      Overview
-                    </a>
-                    <a class="navbar-item" href="https://bulma.io/documentation/overview/modifiers/">
-                      Modifiers
-                    </a>
-                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-                      Columns
-                    </a>
-                    <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
-                      Layout
-                    </a>
-                    <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
-                      Form
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="https://bulma.io/documentation/elements/box/">
-                      Elements
-                    </a>
-                    <a class="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
-                      Components
-                    </a>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="field is-grouped">
-                    <p class="control">
-                      <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="https://bulma.io" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms">
-                        <span class="icon">
-                          <i class="fab fa-twitter"></i>
-                        </span>
-                        <span>
-                          Tweet
-                        </span>
-                      </a>
-                    </p>
-                    <p class="control">
-                      <a class="button is-primary" href="https://github.com/jgthms/bulma/releases/download/0.9.1/bulma-0.9.1.zip">
-                        <span class="icon">
-                          <i class="fas fa-download"></i>
-                        </span>
-                        <span>Download</span>
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-        <h1 class="title is-1">Movie Roulette</h1>
-      </header>
-   <body>
-    <section class="hero is-light">
-        <div class="hero-body">
-          <div class="container">
-            <h2>Holiday:</h2>
-            <button class="button" id="christmas" data-holiday="christmas">
-              Christmas
-            </button>
-            <button class="button" id="stPattys" data-holiday="irish">
-              St. Patrick's Day
-            </button>
-            <button class="button" id="fourth" data-holiday="patriot">
-              July Fourth
-            </button>
+    <header>
+      <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img
+              src="https://bulma.io/images/bulma-logo.png"
+              alt="Bulma: a modern CSS framework based on Flexbox"
+              width="112"
+              height="28"
+            />
+          </a>
+          <div
+            class="navbar-burger"
+            data-target="navbarExampleTransparentExample"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
         </div>
-      </section>
-   </body>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="https://bulma.io/"> Home </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a
+                class="navbar-link"
+                href="https://bulma.io/documentation/overview/start/"
+              >
+                Docs
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/overview/start/"
+                >
+                  Overview
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/overview/modifiers/"
+                >
+                  Modifiers
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/columns/basics/"
+                >
+                  Columns
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/layout/container/"
+                >
+                  Layout
+                </a>
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/form/general/"
+                >
+                  Form
+                </a>
+                <hr class="navbar-divider" />
+                <a
+                  class="navbar-item"
+                  href="https://bulma.io/documentation/elements/box/"
+                >
+                  Elements
+                </a>
+                <a
+                  class="navbar-item is-active"
+                  href="https://bulma.io/documentation/components/breadcrumb/"
+                >
+                  Components
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a
+                    class="bd-tw-button button"
+                    data-social-network="Twitter"
+                    data-social-action="tweet"
+                    data-social-target="https://bulma.io"
+                    target="_blank"
+                    href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=https://bulma.io&amp;via=jgthms"
+                  >
+                    <span class="icon">
+                      <i class="fab fa-twitter"></i>
+                    </span>
+                    <span> Tweet </span>
+                  </a>
+                </p>
+                <p class="control">
+                  <a
+                    class="button is-primary"
+                    href="https://github.com/jgthms/bulma/releases/download/0.9.1/bulma-0.9.1.zip"
+                  >
+                    <span class="icon">
+                      <i class="fas fa-download"></i>
+                    </span>
+                    <span>Download</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <h1 class="title is-1">Movie Roulette</h1>
+    </header>
+    <section class="hero is-light">
+      <div class="hero-body">
+        <div class="container">
+          <h2>Holiday:</h2>
+          <button class="button" id="christmas" data-holiday="christmas">
+            Christmas
+          </button>
+          <button class="button" id="stPattys" data-holiday="irish">
+            St. Patrick's Day
+          </button>
+          <button class="button" id="fourth" data-holiday="patriot">
+            July Fourth
+          </button>
+        </div>
+      </div>
+    </section>
+    <p id="date"></p>
+    <div class="wholeresponse"></div>
+    <div class="holiday"></div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
     console.log("start");
 
-    
     $(".button").on("click", function () {
       var holiday = $(this).attr("data-holiday");
       console.log(holiday);
       var queryURL =
-        "https://api.themoviedb.org/3/search/company?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" + holiday + "&page=1";
-      
+        "https://api.themoviedb.org/3/search/company?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
+        holiday +
+        "&page=1";
+
       console.log(queryURL);
 
       $.ajax({
         url: queryURL,
         method: "GET",
-      })
-      .then(function (response) {
+      }).then(function (response) {
         console.log(response);
       });
     });
+    n = new Date();
+    y = n.getFullYear();
+    console.log(y);
+    m = n.getMonth() + 1;
+    console.log(m);
+    d = n.getDate();
+    document.getElementById("date").innerHTML =
+      "Date: " + m + "/" + d + "/" + y;
+    // This is our API key
+    // Here we are building the URL we need to query the database
+    var year = 2020;
+    // var queryURL = "https://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy";
+    var queryURL =
+      "https://holidayapi.com/v1/holidays?pretty&key=f701963e-4cf4-4b18-99a3-a0938327f6e4&country=US&year=" +
+      year +
+      "&month=" +
+      m +
+      "&public=true";
+    // Here we run our AJAX call to the Holiday API
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    })
+      // We store all of the retrieved data inside of an object called "response"
+      .then(function (response) {
+        // Log the queryURL
+        console.log(queryURL);
+        // Log the resulting object
+        console.log(response);
+        var objLength = response.holidays.length;
+        console.log("length:" + objLength);
+        for (i = 0; i < objLength; i++) {
+          // $(".holiday").text("Holiday: " + JSON.stringify(response));
+          $(".holiday").append("<br>");
+          // $(".wholeresponse").add("<br>");
+          var withQuotes = JSON.stringify(response.holidays[i].name);
+          $(".holiday").append(
+            "<button>" + JSON.parse(withQuotes) + "</button>"
+          );
+        }
+      });
   </script>
-    
-  
 </html>
