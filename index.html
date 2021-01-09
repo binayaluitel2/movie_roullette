@@ -89,9 +89,44 @@
       </header>
    <body>
     <section class="hero is-light">
-        <div class="hero-body"></div>
+        <div class="hero-body">
+          <div class="container">
+            <h2>Holiday:</h2>
+            <button class="button" id="christmas" data-holiday="christmas">
+              Christmas
+            </button>
+            <button class="button" id="stPattys" data-holiday="irish">
+              St. Patrick's Day
+            </button>
+            <button class="button" id="fourth" data-holiday="patriot">
+              July Fourth
+            </button>
+          </div>
+        </div>
       </section>
    </body>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    console.log("start");
+
+    
+    $(".button").on("click", function () {
+      var holiday = $(this).attr("data-holiday");
+      console.log(holiday);
+      var queryURL =
+        "https://api.themoviedb.org/3/search/company?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" + holiday + "&page=1";
+      
+      console.log(queryURL);
+
+      $.ajax({
+        url: queryURL,
+        method: "GET",
+      })
+      .then(function (response) {
+        console.log(response);
+      });
+    });
+  </script>
     
   
 </html>
