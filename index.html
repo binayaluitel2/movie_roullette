@@ -132,10 +132,10 @@
           <button class="button" id="christmas" data-holiday="christmas">
             Christmas
           </button>
-          <button class="button" id="stPattys" data-holiday="irish">
+          <button class="button" id="stPattys" data-holiday="st. patricks day">
             St. Patrick's Day
           </button>
-          <button class="button" id="fourth" data-holiday="patriot">
+          <button class="button" id="fourth" data-holiday="independence day">
             July Fourth
           </button>
         </div>
@@ -153,7 +153,7 @@
       var holiday = $(this).attr("data-holiday");
       console.log(holiday);
       var queryURL =
-        "https://api.themoviedb.org/3/search/company?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
+        "https://api.themoviedb.org/3/search/movie?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
         holiday +
         "&page=1";
 

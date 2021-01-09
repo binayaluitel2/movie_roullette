@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies | Saved</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <section>
+      <h1>Save your top 100 movies below:</h1>
+      <input type="text" name="movies" id="movieIn" />
+      <button type="submit" for="movies" id="saveBtn">Save</button>
+    </section>
+    <div id="savedList"></div>
+  </body>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://www.jsdelivr.com/package/npm/bulma"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <script type="text/javascript">
+    console.log("start");
+    var i = 0;
+    
+
+    $("#saveBtn").on("click", function () {
+      console.log("saveBtn");
+      console.log ("i=" + i)
+
+      //set movie variabble to the value of the inut field
+      var movie = $("#movieIn").val().trim();
+      var item = $("<div>").addClass("box");
+
+      console.log(movie);
+      //creating a paragraph with the movie title as text and appending it to page
+      $(item).text(movie);
+      $("#savedList").append(item);
+
+      localStorage.setItem("movie" + i, JSON.stringify(movie));
+
+      i++;
+    });
+
+    function reloadList() {
+      console.log("loading");
+      for (j = 0; j < 100; j++) {
+        var movie = JSON.parse(localStorage.getItem("movie" + j));
+        if (movie !== null) {
+          console.log(movie);
+          var item = $("<div>").addClass("box");
+          $(item).text(movie);
+          $("#savedList").append(item);
+        }
+        if (movie === null) {
+          i = j;
+          return;
+        }
+      }
+    }
+
+    reloadList();
+  </script>
+</html>
