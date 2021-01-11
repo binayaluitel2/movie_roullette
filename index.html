@@ -93,6 +93,7 @@
     <p id="date"></p>
     <div class="wholeresponse"></div>
     <div class="holiday"></div>
+    <div class="movies"></div>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -158,6 +159,14 @@
             method: "GET",
           }).then(function (response) {
             console.log(response);
+            for(i=0; i<response.results.length; i++){
+                let newDiv = $("<div>").attr("class", "container");
+                let newTitle = $("<h2>").text("Movie: " + response.results[i].title).attr("class", "titleStyle");
+                let newOverview = $("<p>").text("Overview " + response.results[i].overview);
+                
+                newDiv.append(newTitle).append(newOverview)
+                $(".movies").append(newDiv)
+            }
           });
         });
       });
