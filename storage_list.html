@@ -13,9 +13,18 @@
 
   <body>
     <section>
-      <h1><strong>Save your top 100 movies below:</strong></h1>
-      <input type="text" name="movies" id="movieIn" />
-      <button type="submit" for="movies" id="saveBtn">Save</button>
+      <h1 id= "storageTitle"><strong>Save your top 100 movies below:</strong></h1>
+      <div class= "columns is-centered">
+        <div class= "column is-one-quarter">
+            <input class= "input" type="text" name="movies" id="movieIn" />
+          </div>
+          
+          <div class= "column is-one-quarter">
+            <button class= "button" type="submit" for="movies" id="saveBtn">Save</button>
+          </div>
+      </div>
+     
+      
     </section>
     <div class="columns is-multiline" id="savedList"></div>
   </body>
