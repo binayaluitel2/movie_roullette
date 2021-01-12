@@ -15,9 +15,9 @@
     <section>
       <h1><strong>Save your top 100 movies below:</strong></h1>
       <input type="text" name="movies" id="movieIn" />
-      <button type="submit" for="movies" id="saveBtn" >Save</button>
+      <button type="submit" for="movies" id="saveBtn">Save</button>
     </section>
-    <div id="savedList"></div>
+    <div class="columns is-multiline" id="savedList"></div>
   </body>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -33,15 +33,14 @@
     $("#saveBtn").on("click", function () {
       console.log("saveBtn");
       console.log("i=" + i);
-      
 
       var movie = $("#movieIn").val().trim();
       var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
 
-      if(movie === "") {
-          console.log("add movie");
-          return
-      };
+      if (movie === "") {
+        console.log("add movie");
+        return;
+      }
 
       $.ajax({
         url: queryURL,
@@ -52,7 +51,10 @@
         var posterSite = response.Poster;
         var filmName = response.Title;
         var title = $("<p>").text(filmName);
-        var box = $("<div>").addClass("box");
+        var box = $("<div>")
+          .addClass("box")
+          .addClass("column")
+          .addClass("is-one-quarter");
         var image = $("<img>")
           .attr("src", posterSite)
           .attr("alt", filmName + " poster")
@@ -92,7 +94,10 @@
             var posterSite = response.Poster;
             var filmName = response.Title;
             var title = $("<p>").text(filmName);
-            var box = $("<div>").addClass("box");
+            var box = $("<div>")
+              .addClass("box")
+              .addClass("column")
+              .addClass("is-one-quarter");
 
             var image = $("<img>")
               .attr("src", posterSite)
@@ -111,8 +116,6 @@
         }
       }
     }
-
-
 
     reloadList();
   </script>

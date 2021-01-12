@@ -145,6 +145,7 @@
         }
 
         $(".button").on("click", function () {
+          $(".movies").empty();
           var holiday = $(this).attr("data-holiday");
           console.log(holiday);
           var queryURL =
