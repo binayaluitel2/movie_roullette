@@ -40,3 +40,14 @@ button:hover {
   font-weight: bold;
 }
 
+#saveBtn{
+  all: revert;
+  color: #fff !important;
+  width: 300px;
+  height: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#storageTitle {
+  font-size: 50px;
+}
