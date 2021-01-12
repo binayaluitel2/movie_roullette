@@ -12,19 +12,81 @@
   </head>
 
   <body>
+    <nav class="navbar is-transparent">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <img
+              src="https://i.pinimg.com/736x/54/51/75/54517514b7e9c8c21cb1526176c30732.jpg"
+              alt="movie_roullette_logo"
+              width="60"
+              height="20"
+            />
+          </a>
+          <div
+            class="navbar-burger"
+            data-target="navbarExampleTransparentExample"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a
+              class="navbar-item"
+              href="https://vpatt1031.github.io/movie_roullette/"
+            >
+              Home
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a
+                class="navbar-link"
+                href="https://vpatt1031.github.io/movie_roullette/"
+              >
+                Movie Ratings
+              </a>
+              <div class="navbar-dropdown is-boxed">
+                <a class="navbar-item" href="https://www.rottentomatoes.com/">
+                  Rotten Tomatoes
+                </a>
+                <a class="navbar-item" href="https://www.imdb.com/"> IMDb </a>
+                <a class="navbar-item" href="http://www.omdbapi.com/"> OMDb </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <a
+                    class="button is-info is-outlined"
+                    href="storage_list.html"
+                  >
+                    <span> My Saved Movies </span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
     <section>
-      <h1 id= "storageTitle"><strong>Save your top 100 movies below:</strong></h1>
-      <div class= "columns is-centered">
-        <div class= "column is-one-quarter">
-            <input class= "input" type="text" name="movies" id="movieIn" />
-          </div>
-          
-          <div class= "column is-one-quarter">
-            <button class= "button" type="submit" for="movies" id="saveBtn">Save</button>
-          </div>
+      <h1 id="storageTitle">
+        <strong>Save your top 100 movies below:</strong>
+      </h1>
+      <div class="columns is-centered">
+        <div class="column is-one-quarter">
+          <input class="input" type="text" name="movies" id="movieIn" />
+        </div>
+
+        <div class="column is-one-quarter">
+          <button class="button" type="submit" for="movies" id="saveBtn">
+            Save
+          </button>
+        </div>
       </div>
-     
-      
     </section>
     <div class="columns is-multiline" id="savedList"></div>
   </body>
@@ -84,6 +146,9 @@
         //clears input field
         $("#movieIn").val("");
       });
+      $(".info").on("click", function () {
+        console.log("I clicked a Movie!");
+      });
     });
 
     function reloadList() {
@@ -112,11 +177,21 @@
               .attr("src", posterSite)
               .attr("alt", filmName + " poster")
               .attr("style", "height: 200px");
+            // var learnMore = $("<button>")
+            //   .addClass("info")
+            //   .text("Learn More")
+            //   .attr("style", "all: revert");
 
             //creating a paragraph with the movie title as text and appending it to page
             $(box).append(title);
             $(box).append(image);
+            // $(box).append("<br>");
+            // $(box).append(learnMore);
             $("#savedList").append(box);
+
+            $(box).on("click", function () {
+              console.log("hello");
+            });
           });
         }
         if (movie === null) {
@@ -125,6 +200,10 @@
         }
       }
     }
+
+    $(".info").on("click", function () {
+      console.log("I clicked a Movie!");
+    });
 
     reloadList();
   </script>
