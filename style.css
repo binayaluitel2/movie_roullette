@@ -34,13 +34,13 @@ button:hover {
 
 }
 
-.box {
+.savedPageBox {
   text-align: center;
   width: 30%;
   font-weight: bold;
 }
 
-#saveBtn{
+.savePageButtons {
   all: revert;
   color: #fff !important;
   width: 300px;
