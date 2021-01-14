@@ -13,65 +13,62 @@
 
   <body>
     <nav class="navbar is-transparent">
-        <div class="navbar-brand">
-          <a class="navbar-item">
-            <img
-              src="https://i.pinimg.com/736x/54/51/75/54517514b7e9c8c21cb1526176c30732.jpg"
-              alt="movie_roullette_logo"
-              width="60"
-              height="20"
-            />
-          </a>
-          <div
-            class="navbar-burger"
-            data-target="navbarExampleTransparentExample"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img
+            src="https://i.pinimg.com/736x/54/51/75/54517514b7e9c8c21cb1526176c30732.jpg"
+            alt="movie_roullette_logo"
+            width="60"
+            height="20"
+          />
+        </a>
+        <div
+          class="navbar-burger"
+          data-target="navbarExampleTransparentExample"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
-          <div class="navbar-start">
+      </div>
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a
+            class="navbar-item"
+            href="https://vpatt1031.github.io/movie_roullette/"
+          >
+            Home
+          </a>
+          <div class="navbar-item has-dropdown is-hoverable">
             <a
-              class="navbar-item"
+              class="navbar-link"
               href="https://vpatt1031.github.io/movie_roullette/"
             >
-              Home
+              Movie Ratings
             </a>
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a
-                class="navbar-link"
-                href="https://vpatt1031.github.io/movie_roullette/"
-              >
-                Movie Ratings
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="https://www.rottentomatoes.com/">
+                Rotten Tomatoes
               </a>
-              <div class="navbar-dropdown is-boxed">
-                <a class="navbar-item" href="https://www.rottentomatoes.com/">
-                  Rotten Tomatoes
-                </a>
-                <a class="navbar-item" href="https://www.imdb.com/"> IMDb </a>
-                <a class="navbar-item" href="http://www.omdbapi.com/"> OMDb </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <a
-                    class="button is-info is-outlined"
-                    href="storage_list.html"
-                  >
-                    <span> My Saved Movies </span>
-                  </a>
-                </p>
-              </div>
+              <a class="navbar-item" href="https://www.imdb.com/"> IMDb </a>
+              <a class="navbar-item" href="http://www.omdbapi.com/"> OMDb </a>
             </div>
           </div>
         </div>
-      </nav>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="button is-info is-outlined" href="storage_list.html">
+                  <span> My Saved Movies </span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
     <section>
       <h1 id="storageTitle">
         <strong>Save your top 100 movies below:</strong>
@@ -82,8 +79,13 @@
         </div>
 
         <div class="column is-one-quarter">
-          <button class="button" type="submit" for="movies" id="saveBtn">
+          <button class="button savePageButtons" type="submit" for="movies" id="saveBtn">
             Save
+          </button>
+        </div>
+        <div class="column is-one-quarter">
+          <button class="button savePageButtons" type="submit"  id="clearBtn">
+            Clear All
           </button>
         </div>
       </div>
@@ -101,6 +103,13 @@
     console.log("start");
     var i = 0;
 
+//function to clear all movies and local storage when clear all button is hit
+    $("#clearBtn").on("click", function(){
+      console.log("CLEAR!")
+      localStorage.clear();
+      $("#savedList").empty();
+    })
+//function that saves and appends movies to the bottom of the page
     $("#saveBtn").on("click", function () {
       console.log("saveBtn");
       console.log("i=" + i);
@@ -121,15 +130,25 @@
 
         var posterSite = response.Poster;
         var filmName = response.Title;
+        var noSpace = JSON.stringify(filmName).replaceAll(" ", "");
+        var filmDivId = JSON.parse(noSpace);
+        console.log("title id " + filmDivId);
         var title = $("<p>").text(filmName);
         var box = $("<div>")
           .addClass("box")
+          .addClass("savedPageBox")
           .addClass("column")
-          .addClass("is-one-quarter");
+          .addClass("is-one-quarter")
+          .attr("id", filmDivId);
         var image = $("<img>")
           .attr("src", posterSite)
           .attr("alt", filmName + " poster")
           .attr("style", "height: 200px");
+        var removeBtn = $("<button>")
+          .addClass("remove")
+          .text("Remove")
+          .attr("style", "all: revert")
+          .attr("data-name", filmDivId);
 
         console.log(movie);
         // if (response.Response === "False"){
@@ -138,19 +157,30 @@
         // }
         $(box).append(title);
         $(box).append(image);
+        $(box).append("<br>");
+        $(box).append(removeBtn);
+
         $("#savedList").append(box);
         //setting movie to local storage
-        localStorage.setItem("movie" + i, JSON.stringify(movie));
+        localStorage.setItem("movie" + i, JSON.stringify(filmName));
         //adds to the count for saving movies
         i++;
         //clears input field
         $("#movieIn").val("");
-      });
-      $(".info").on("click", function () {
-        console.log("I clicked a Movie!");
+
+        $(removeBtn).on("click", function () {
+          console.log("hello, you clicked: " + filmName);
+          var film = $(this).attr("data-name");
+        
+          var filmId = "#" + film;
+
+          console.log("filmID: " + filmId);
+
+          $(filmId).remove();
+        });
       });
     });
-
+//function to reload movies from local storage
     function reloadList() {
       console.log("loading");
       for (j = 0; j < 100; j++) {
@@ -167,30 +197,44 @@
           }).then(function (response) {
             var posterSite = response.Poster;
             var filmName = response.Title;
+            var noSpace = JSON.stringify(filmName).replaceAll(" ", "");
+            var filmDivId = JSON.parse(noSpace);
+            console.log("title id " + filmDivId);
             var title = $("<p>").text(filmName);
             var box = $("<div>")
               .addClass("box")
+              .addClass("savedPageBox")
               .addClass("column")
-              .addClass("is-one-quarter");
+              .addClass("is-one-quarter")
+              .attr("id", filmDivId);
 
             var image = $("<img>")
               .attr("src", posterSite)
               .attr("alt", filmName + " poster")
               .attr("style", "height: 200px");
-            // var learnMore = $("<button>")
-            //   .addClass("info")
-            //   .text("Learn More")
-            //   .attr("style", "all: revert");
+            var removeBtn = $("<button>")
+              .addClass("remove")
+              .text("Remove")
+              .attr("style", "all: revert")
+              .attr("data-name", filmDivId);
 
             //creating a paragraph with the movie title as text and appending it to page
             $(box).append(title);
             $(box).append(image);
-            // $(box).append("<br>");
-            // $(box).append(learnMore);
+            $(box).append("<br>");
+            $(box).append(removeBtn);
             $("#savedList").append(box);
 
-            $(box).on("click", function () {
-              console.log("hello");
+            $(removeBtn).on("click", function () {
+              console.log("hello, you clicked: " + filmName);
+              
+              var film = $(this).attr("data-name");
+              
+              var filmId = "#" + film;
+
+              console.log("filmID: " + filmId);
+
+              $(filmId).remove();
             });
           });
         }
@@ -200,10 +244,6 @@
         }
       }
     }
-
-    $(".info").on("click", function () {
-      console.log("I clicked a Movie!");
-    });
 
     reloadList();
   </script>
