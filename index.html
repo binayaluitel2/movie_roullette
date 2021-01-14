@@ -122,6 +122,15 @@
     })
       // We store all of the retrieved data inside of an object called "response"
       .then(function (response) {
+        if (response.holidays.length == 0) {
+          console.log(response);
+          var $div = $("<div />").appendTo("body");
+          $div.attr("id", "noholiday");
+          $(".movies").text("No Holiday For This Month. Check out your saved movies.");
+          $(".movies").css({"font-size": "300%","background-color": "red","text-align": "center"});
+          console.log("No Holiday for this month");
+        } else {
+          console.log(" Holiday for this month");
         // Log the queryURL
         console.log(queryURL);
         // Log the resulting object
@@ -178,25 +187,58 @@
           }).then(function (response) {
             console.log(response);
             for (i = 0; i < response.results.length; i++) {
-              let newDiv = $("<div>").attr("class", "container");
-              var newTitle = $("<h2>")
-                .text("Movie: " + response.results[i].title)
-                .attr("class", "titleStyle");
-              var newOverview = $("<p>").text(
-                "Overview: " + response.results[i].overview
-              );
-              var newPoster = $("<img>").attr(
+              //box section
+              var newBox = $("<div>").attr("class", "box");
+              var newArticle = $("<article>").attr("class", "media");
+
+              //image section
+              var newImgContainer = $("<div>").attr("class", "media-left");
+              var newFigure = $("<figure>").attr("class", "image is-80x80");
+              var newImg = $("<img>").attr(
                 "src",
                 "https://image.tmdb.org/t/p/w200" +
                   response.results[i].poster_path
               );
-              newDiv.append(newTitle).append(newOverview);
-              $(".movies").append(newDiv);
-              newDiv.append(newTitle).append(newPoster);
-              $(".movies").append(newDiv);
+              newFigure.append(newImg);
+              newImgContainer.append(newFigure);
+
+              //content section
+              var newBr = $("<br>");
+              var newMediaC = $("<div>").attr("class", "media-content");
+              var newContent = $("<div>").attr("class", "content");
+              var newP = $("<p>");
+              var newTitle = $("<strong>").text(
+                "Title:" + " " + response.results[i].title
+              );
+              var newOverview = $("<strong>").text(
+                "Overview:" + " " + response.results[i].overview
+              );
+              var releaseDate = $("<small>").text("Release Date:" + " " + response.results[i].release_date);
+
+              var newBr = $("<br>");
+              newP.append("<br>");
+
+              // newP.append(newTitle).append(newBr).append(newOverview).append(newBr).append(releaseDate);
+              newP.append(newTitle);
+              newP.append("<br>");
+              newP.append("<br>")
+              newP.append(newOverview);
+              newP.append("<br>")
+              newP.append("<br>")
+              newP.append(releaseDate);
+              newP.append("<br>")
+
+              newContent.append(newP);
+              newMediaC.append(newContent);
+
+              newArticle.append(newImgContainer).append(newMediaC);
+              newBox.append(newArticle);
+
+              //HTML section
+              $(".movies").append(newBox);
             }
           });
         });
-      });
+      }});
   </script>
 </html>
