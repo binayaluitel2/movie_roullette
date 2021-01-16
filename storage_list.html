@@ -101,6 +101,7 @@
   ></script>
   <script type="text/javascript">
     console.log("start");
+    //varable to be used in setting movie count
     var i = 0;
 
 //function to clear all movies and local storage when clear all button is hit
@@ -111,12 +112,14 @@
     })
 //function that saves and appends movies to the bottom of the page
     $("#saveBtn").on("click", function () {
-      console.log("saveBtn");
+      console.log("Clicked on saveBtn");
       console.log("i=" + i);
 
+      //getting value from input field and searching it in API
       var movie = $("#movieIn").val().trim();
       var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
 
+      //if no value in input field, stop running
       if (movie === "") {
         console.log("add movie");
         return;
@@ -130,10 +133,12 @@
 
         var posterSite = response.Poster;
         var filmName = response.Title;
+         //turning title response into string and taking spaces out of that string for storage purposes
         var noSpace = JSON.stringify(filmName).replaceAll(" ", "");
         var filmDivId = JSON.parse(noSpace);
         console.log("title id " + filmDivId);
         var title = $("<p>").text(filmName);
+          //this will hold all the movie information that will be appened to page
         var box = $("<div>")
           .addClass("box")
           .addClass("savedPageBox")
@@ -144,22 +149,17 @@
           .attr("src", posterSite)
           .attr("alt", filmName + " poster")
           .attr("style", "height: 200px");
-        var removeBtn = $("<button>")
-          .addClass("remove")
-          .text("Remove")
-          .attr("style", "all: revert")
-          .attr("data-name", filmDivId);
+       
 
         console.log(movie);
         // if (response.Response === "False"){
         //     console.log("not found")
         //     return
         // }
+        //adding movie title and poster to box
         $(box).append(title);
         $(box).append(image);
-        $(box).append("<br>");
-        $(box).append(removeBtn);
-
+        //posting box as a tile on the webpage
         $("#savedList").append(box);
         //setting movie to local storage
         localStorage.setItem("movie" + i, JSON.stringify(filmName));
@@ -167,24 +167,16 @@
         i++;
         //clears input field
         $("#movieIn").val("");
-
-        $(removeBtn).on("click", function () {
-          console.log("hello, you clicked: " + filmName);
-          var film = $(this).attr("data-name");
-        
-          var filmId = "#" + film;
-
-          console.log("filmID: " + filmId);
-
-          $(filmId).remove();
-        });
       });
     });
 //function to reload movies from local storage
     function reloadList() {
-      console.log("loading");
+      // console.log("loading");
+
+      //loop to go through local storage and get informtion
       for (j = 0; j < 100; j++) {
         var movie = JSON.parse(localStorage.getItem("movie" + j));
+        //when there is information for a movie in local storage, run this.
         if (movie !== null) {
           console.log(movie);
           var box = $("<div>").addClass("box");
@@ -197,10 +189,15 @@
           }).then(function (response) {
             var posterSite = response.Poster;
             var filmName = response.Title;
+            //turning title response into string and taking spaces out of that string for storage purposes
             var noSpace = JSON.stringify(filmName).replaceAll(" ", "");
             var filmDivId = JSON.parse(noSpace);
-            console.log("title id " + filmDivId);
+
+            // console.log("title id " + filmDivId);
+
+            //creating paragraph to hold movie title info
             var title = $("<p>").text(filmName);
+            //this will hold all the movie information that will be appened to page
             var box = $("<div>")
               .addClass("box")
               .addClass("savedPageBox")
@@ -212,34 +209,20 @@
               .attr("src", posterSite)
               .attr("alt", filmName + " poster")
               .attr("style", "height: 200px");
-            var removeBtn = $("<button>")
-              .addClass("remove")
-              .text("Remove")
-              .attr("style", "all: revert")
-              .attr("data-name", filmDivId);
 
             //creating a paragraph with the movie title as text and appending it to page
             $(box).append(title);
             $(box).append(image);
-            $(box).append("<br>");
-            $(box).append(removeBtn);
+            //adding the box to the webpage
             $("#savedList").append(box);
 
-            $(removeBtn).on("click", function () {
-              console.log("hello, you clicked: " + filmName);
-              
-              var film = $(this).attr("data-name");
-              
-              var filmId = "#" + film;
-
-              console.log("filmID: " + filmId);
-
-              $(filmId).remove();
-            });
+            
           });
         }
+        //if there isn't any saved information for a movie{j} in local storage, this will reset 
+        //var i for assigning movie numbers above and stop the loop. 
         if (movie === null) {
-          i = j;
+          i = j
           return;
         }
       }
