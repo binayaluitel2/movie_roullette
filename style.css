@@ -1,5 +1,6 @@
 h1 {
     text-align: center;
+  
 }
 
 button {
@@ -32,3 +33,10 @@ button:hover {
     font-size: large;
 
 }
+
+.box {
+  text-align: center;
+  width: 30%;
+  font-weight: bold;
+}
+

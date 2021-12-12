@@ -4,44 +4,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies | Saved</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <section>
-      <h1>Save your top 100 movies below:</h1>
+      <h1><strong>Save your top 100 movies below:</strong></h1>
       <input type="text" name="movies" id="movieIn" />
       <button type="submit" for="movies" id="saveBtn">Save</button>
     </section>
-    <div id="savedList"></div>
+    <div class="columns is-multiline" id="savedList"></div>
   </body>
-
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://www.jsdelivr.com/package/npm/bulma"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <script
+    defer
+    src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+  ></script>
   <script type="text/javascript">
     console.log("start");
     var i = 0;
-    
 
     $("#saveBtn").on("click", function () {
       console.log("saveBtn");
-      console.log ("i=" + i)
+      console.log("i=" + i);
 
-      //set movie variabble to the value of the inut field
       var movie = $("#movieIn").val().trim();
-      var item = $("<div>").addClass("box");
+      var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
 
-      console.log(movie);
-      //creating a paragraph with the movie title as text and appending it to page
-      $(item).text(movie);
-      $("#savedList").append(item);
+      if (movie === "") {
+        console.log("add movie");
+        return;
+      }
 
-      localStorage.setItem("movie" + i, JSON.stringify(movie));
+      $.ajax({
+        url: queryURL,
+        method: "GET",
+      }).then(function (response) {
+        console.log(response);
 
-      i++;
+        var posterSite = response.Poster;
+        var filmName = response.Title;
+        var title = $("<p>").text(filmName);
+        var box = $("<div>")
+          .addClass("box")
+          .addClass("column")
+          .addClass("is-one-quarter");
+        var image = $("<img>")
+          .attr("src", posterSite)
+          .attr("alt", filmName + " poster")
+          .attr("style", "height: 200px");
+
+        console.log(movie);
+        // if (response.Response === "False"){
+        //     console.log("not found")
+        //     return
+        // }
+        $(box).append(title);
+        $(box).append(image);
+        $("#savedList").append(box);
+        //setting movie to local storage
+        localStorage.setItem("movie" + i, JSON.stringify(movie));
+        //adds to the count for saving movies
+        i++;
+        //clears input field
+        $("#movieIn").val("");
+      });
     });
 
     function reloadList() {
@@ -50,9 +83,32 @@
         var movie = JSON.parse(localStorage.getItem("movie" + j));
         if (movie !== null) {
           console.log(movie);
-          var item = $("<div>").addClass("box");
-          $(item).text(movie);
-          $("#savedList").append(item);
+          var box = $("<div>").addClass("box");
+          var queryURL =
+            "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
+
+          $.ajax({
+            url: queryURL,
+            method: "GET",
+          }).then(function (response) {
+            var posterSite = response.Poster;
+            var filmName = response.Title;
+            var title = $("<p>").text(filmName);
+            var box = $("<div>")
+              .addClass("box")
+              .addClass("column")
+              .addClass("is-one-quarter");
+
+            var image = $("<img>")
+              .attr("src", posterSite)
+              .attr("alt", filmName + " poster")
+              .attr("style", "height: 200px");
+
+            //creating a paragraph with the movie title as text and appending it to page
+            $(box).append(title);
+            $(box).append(image);
+            $("#savedList").append(box);
+          });
         }
         if (movie === null) {
           i = j;
