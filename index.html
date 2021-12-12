@@ -55,7 +55,6 @@
               </div>
             </div>
           </div>
-
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="field is-grouped">
@@ -98,7 +97,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
     console.log("start");
-
     n = new Date();
     y = n.getFullYear();
     console.log(y);
@@ -129,12 +127,9 @@
         // Log the resulting object
         console.log(response);
         var objLength = response.holidays.length;
-
         console.log("length:" + objLength);
         for (i = 0; i < objLength; i++) {
-          // $(".holiday").text("Holiday: " + JSON.stringify(response));
           $(".holiday").append("<br>");
-          // $(".wholeresponse").add("<br>");
           var withQuotes = JSON.stringify(response.holidays[i].name);
           var holidayBtn = $("<button>").text(JSON.parse(withQuotes));
           $(holidayBtn)
@@ -143,29 +138,62 @@
             .attr("id", i);
           $(".holiday").append(holidayBtn);
         }
-
         $(".button").on("click", function () {
+          $(".movies").empty();
           var holiday = $(this).attr("data-holiday");
+          console.log("Initial holiday:" + holiday);
           console.log(holiday);
-          var queryURL =
-            "https://api.themoviedb.org/3/search/movie?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
-            holiday +
-            "&page=1";
-
+          console.log("George Washington's Birthday");
+          if (JSON.parse(holiday) == "George Washington's Birthday") {
+            var editedHolidayone = "George Washington";
+            console.log(
+              "This is George Wahingtons birthday" + editedHolidayone
+            );
+            var queryURL =
+              "https://api.themoviedb.org/3/search/movie?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
+              editedHolidayone +
+              "&page=1";
+          } else if (JSON.parse(holiday) == "Martin Luther King, Jr. Day") {
+            holiday = holiday.split(",")[0];
+            var queryURL =
+              "https://api.themoviedb.org/3/search/movie?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
+              holiday +
+              "&page=1";
+          } else if (JSON.parse(holiday) == "Veterans Day") {
+            holiday = "soldiers";
+            var queryURL =
+              "https://api.themoviedb.org/3/search/movie?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
+              holiday +
+              "&page=1";
+          } else {
+            var queryURL =
+              "https://api.themoviedb.org/3/search/movie?api_key=8b8321a4340d1db0b38b5023be719a8e&query=" +
+              holiday +
+              "&page=1";
+          }
           console.log(queryURL);
-
           $.ajax({
             url: queryURL,
             method: "GET",
           }).then(function (response) {
             console.log(response);
-            for(i=0; i<response.results.length; i++){
-                let newDiv = $("<div>").attr("class", "container");
-                let newTitle = $("<h2>").text("Movie: " + response.results[i].title).attr("class", "titleStyle");
-                let newOverview = $("<p>").text("Overview " + response.results[i].overview);
-                
-                newDiv.append(newTitle).append(newOverview)
-                $(".movies").append(newDiv)
+            for (i = 0; i < response.results.length; i++) {
+              let newDiv = $("<div>").attr("class", "container");
+              var newTitle = $("<h2>")
+                .text("Movie: " + response.results[i].title)
+                .attr("class", "titleStyle");
+              var newOverview = $("<p>").text(
+                "Overview: " + response.results[i].overview
+              );
+              var newPoster = $("<img>").attr(
+                "src",
+                "https://image.tmdb.org/t/p/w200" +
+                  response.results[i].poster_path
+              );
+              newDiv.append(newTitle).append(newOverview);
+              $(".movies").append(newDiv);
+              newDiv.append(newTitle).append(newPoster);
+              $(".movies").append(newDiv);
             }
           });
         });
